@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     //variavel para o rigidBody
@@ -13,13 +14,27 @@ public class Player : MonoBehaviour
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
-        posInicial = new Vector3(0, 0, 0);
+        posInicial = new Vector3(0f, 0f, 0f);
         transform.position = posInicial;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        rig.velocity = new Vector2(speed, rig.velocity.y);
+        //verifica se a tecla A foi pressionada e o valor x da Scale esta positivo
+        if(Input.GetKeyDown(KeyCode.A) && transform.localScale.x > 0)
+        {
+            transform.localScale = new Vector3(transform.localScale.x * -1,
+           transform.localScale.y, transform.localScale.z);
+            Debug.Log("Tecla A pressionada");
+        }
+        //verifica se a tecla D foi pressionada e o valor x da Scale esta negativo
+        if (Input.GetKeyDown(KeyCode.D) && transform.localScale.x < 0)
+        {
+            transform.localScale = new Vector3(transform.localScale.x * -1,
+           transform.localScale.y, transform.localScale.z);
+            Debug.Log("Tecla D foi pressionada"); 
+        }
     }
 }
