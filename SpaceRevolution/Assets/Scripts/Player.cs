@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     private Vector3 posInicial;
     //variavel da velocidade
     private float Speed = 5;
+    //componente animator
+    public Animator animator;
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
@@ -23,6 +25,15 @@ public class Player : MonoBehaviour
     {
         rig.velocity = new Vector2(Speed, rig.velocity.y);
         rig.velocity = new Vector2(Input.GetAxis("Horizontal") * Speed, rig.velocity.y);
+        //se o player se movimentar na horizontal
+        if(Input.GetAxis("Horizontal") != 0)
+        {
+            animator.SetBool("isMoving",true);
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+        }
         //verifica se a tecla A foi pressionada e o valor x da Scale esta positivo
         if (Input.GetKeyDown(KeyCode.A) && transform.localScale.x > 0)
         {
