@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     //componente animator
     public Animator animator;
     public bool isJumping = false;
-    private float JumpForce = 8;
+    private float JumpForce = 12;
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
@@ -54,6 +54,23 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x * -1,
            transform.localScale.y, transform.localScale.z);
             Debug.Log("Tecla D foi pressionada"); 
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //verifica se o objeto tem a Tag Line
+        if (collision.gameObject.CompareTag("Line"))
+        {
+            Debug.Log("morri");
+            //retorno o personagem para posicao inicial
+            transform.position = posInicial;
+        }
+        //verifica se o objeto tem a Checkpoint
+        if (collision.gameObject.CompareTag("Checkpoint"))
+        {
+            Debug.Log("Checkpoint");
+            //modifica a posicao inicial para a posicao do checkpoint
+            posInicial = collision.gameObject.transform.position; 
         }
     }
 }
